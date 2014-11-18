@@ -1,0 +1,47 @@
+################################
+##   SANDBOX GLOBAL SETTINGS  ##
+################################
+
+#sandbox OS
+sandbox_box: "ubuntu/trusty64"
+#final hostname would be "module.stratio.com"
+sandbox_hostname_suffix: "stratio.com"
+#sandbox ip
+sandbox_network_ip: "10.10.10.10"
+sandbox_memory: "3072"
+sandbox_cpus: "2"
+sandbox_max_cpu_usage: "60"
+
+
+#################################
+##   MODULE SPECIFIC SETTINGS  ##
+#################################
+
+
+######## STRATIO STREAMING ######
+
+#environment, it should be [LOCAL|DEV|PRE|PRO]
+stratio_env: "PRE"
+#this module will be fully installed in the sandbox
+stratio_module_name: "streaming"
+#force an specific version of the module
+stratio_module_version: "0.5.0"
+#module github name
+stratio_module_github_name: "streaming-cep-engine"
+
+
+######## STRATIO CROSSDATA ######
+
+
+
+######## STRATIO DEEP ######
+
+
+######## STRATIO DATAVIS ######
+
+
+
+######## STRATIO ADMIN ######
+
+
+######## STRATIO SPARKTA ######
