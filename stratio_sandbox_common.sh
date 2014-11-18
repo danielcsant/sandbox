@@ -1,9 +1,6 @@
-STRATIO_ENV=$1
-STRATIO_MODULE_VERSION=$2
-STRATIO_MODULE_GITHUB_NAME=$3
 
-
-
+export STRATIO_ENV="$(echo ${STRATIO_ENV:-PRE} | tr '[:lower:]' '[:upper:]')"
+export STRATIO_MODULE_GITHUB_NAME="${STRATIO_MODULE_GITHUB_NAME:-sandbox}"
 
 case "$STRATIO_ENV" in
 	LOCAL) REPOSITORY="berilio.stratio.com/DEV/1.0.0"
@@ -19,17 +16,17 @@ case "$STRATIO_ENV" in
 esac		
 		
 REPOSITORY_URL="deb http://${REPOSITORY}/ubuntu/13.10/ binary/"
-		
 
+export DEBIAN_FRONTEND=noninteractive
 
-#######################################
-## FOLDERS
-#######################################¡
-mkdir /home/vagrant/downloads
+#############
+## FOLDERS ##
+#############
+mkdir -p /home/vagrant/downloads
 
-#######################################
-## REPOSITORIES
-#######################################¡
+##################
+## REPOSITORIES ##
+##################
 
 echo 'Loading repositories...'
 
@@ -47,9 +44,9 @@ echo 'Updating repositories...'
 apt-get update -q -y
 
 
-#######################################
-## JAVA
-#######################################
+##########
+## JAVA ##
+##########
 
 echo 'Installing Java 7 oracle...'
 
@@ -60,27 +57,21 @@ echo 'Installing java 7...'
 apt-get install oracle-java7-installer oracle-java7-set-default -q -y
 update-java-alternatives -s java-7-oracle
 
-
-
-#######################################
-## SERVICES
-#######################################
+##############
+## SERVICES ##
+##############
 
 echo 'Installing common services...'
-apt-get install stratio-kafka stratio-zookeeper stratio-cassandra elasticsearch mongodb-org git maven dos2unix -q -y --force-yes
+apt-get install stratio-kafka stratio-zookeeper stratio-cassandra elasticsearch mongodb-org git -q -y --force-yes
 
 
-
-#######################################
-## DOWLOAD & RUN SPECIFIC MODULE
-#######################################
+####################################
+## DOWNLOAD & RUN SPECIFIC MODULE ##
+####################################
 
 echo 'Installing common services...'
-mkdir /home/vagrant/module
+mkdir -p /home/vagrant/module
 DOWNLOAD_MODULE_SH_URL="https://raw.githubusercontent.com/Stratio/${STRATIO_MODULE_GITHUB_NAME}/master/sandbox/stratio_sandbox_module"
 curl $DOWNLOAD_MODULE_SH_URL > /home/vagrant/module/stratio_sandbox_module
-chmod 777 /home/vagrant/module/stratio_sandbox_module
-dos2unix /home/vagrant/module/stratio_sandbox_module
-sh /home/vagrant/module/stratio_sandbox_module $STRATIO_ENV $STRATIO_MODULE_VERSION $STRATIO_MODULE_GITHUB_NAME
-
+bash /home/vagrant/module/stratio_sandbox_module
 
