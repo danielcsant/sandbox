@@ -7,7 +7,12 @@ VAGRANTFILE_API_VERSION = "2"
 # We are using a YAML file with all the env variables
 require 'yaml'
 
-settings = YAML::load_file("vagrant_settings.yml")
+if File.exist?("vagrant_settings.yml")
+	settings = YAML::load_file("vagrant_settings.yml")
+else                                                                                                        
+    puts "Hey, required file vagrant_settings.yml is missing. Please download it here https://github.com/Stratio/sandbox"                                                                   
+    exit                                                                                                      
+end              
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 

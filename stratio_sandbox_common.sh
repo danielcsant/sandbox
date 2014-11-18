@@ -50,12 +50,16 @@ apt-get update -q -y
 
 echo 'Installing Java 7 oracle...'
 
-echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
+curl -s -j -k -L -H "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/7u71-b14/jdk-7u71-linux-x64.tar.gz > /tmp/jdk-7u71-linux-x64.tar.gz
+mkdir /usr/java && cd /usr/java
+tar -xzf /tmp/jdk-7u71-linux-x64.tar.gz
+chown -R root:root jdk1.7.0_71
+ln -s jdk1.7.0_71 default
+ln -s jdk1.7.0_71 latest
+update-alternatives --install /usr/bin/java java /usr/java/default/bin/java 1000
+update-alternatives --install /usr/bin/java java /usr/java/latest/bin/java 500
+rm -f /tmp/jdk-7u71-linux-x64.tar.gz
 
-echo 'Installing java 7...'
-
-apt-get install oracle-java7-installer oracle-java7-set-default -q -y
-update-java-alternatives -s java-7-oracle
 
 ##############
 ## SERVICES ##
