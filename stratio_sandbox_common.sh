@@ -63,6 +63,7 @@ ln -s jdk1.7.0_71 default
 ln -s jdk1.7.0_71 latest
 update-alternatives --install /usr/bin/java java /usr/java/default/bin/java 1000
 update-alternatives --install /usr/bin/java java /usr/java/latest/bin/java 500
+update-alternatives --install /usr/bin/jps jps /usr/java/default/bin/jps 1000
 rm -f /tmp/jdk-7u71-linux-x64.tar.gz
 
 cat >/etc/profile.d/java.sh <<EOF
