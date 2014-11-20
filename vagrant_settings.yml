@@ -2,21 +2,19 @@
 ##   SANDBOX GLOBAL SETTINGS  ##
 ################################
 
-#sandbox OS
-sandbox_box: "ubuntu/trusty64"
-#final hostname would be "module.stratio.com"
+# Sandbox OS
+sandbox_box: "chef/centos-6.5"
+#sandbox_box: "ubuntu/trusty64"
+# Final hostname would be "module.stratio.com"
 sandbox_hostname_suffix: "stratio.com"
-#sandbox ip
-sandbox_network_ip: "10.10.10.10"
+#sandbox_network_ip: "x.x.x.x"
 sandbox_memory: "3072"
 sandbox_cpus: "2"
 sandbox_max_cpu_usage: "60"
 
-
 #################################
 ##   MODULE SPECIFIC SETTINGS  ##
 #################################
-
 
 ######## STRATIO STREAMING ######
 
@@ -29,16 +27,20 @@ stratio_module_version: "0.5.0"
 #module github name
 stratio_module_github_name: "streaming-cep-engine"
 
-
 ######## STRATIO CROSSDATA ######
 
-
+#stratio_env: "PRE"
+# This module will be fully installed in the sandbox
+#stratio_module_name: "crossdata"
+# Force an specific version of the module
+#stratio_module_version: "0.1.1"
+# Module github name
+#stratio_module_github_name: "crossdata"
 
 ######## STRATIO DEEP ######
 
 
 ######## STRATIO DATAVIS ######
-
 
 
 ######## STRATIO ADMIN ######
