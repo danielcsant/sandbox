@@ -37,7 +37,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.box = settings["sandbox_box"]
 
-  config.vm.hostname="#{module_name}.stratio.com"
+  config.vm.hostname="#{settings['stratio_module_name']}.stratio.com"
 
   # Create a private network, which allows host-only access to the machine
   config.vm.network "private_network", type: "dhcp"

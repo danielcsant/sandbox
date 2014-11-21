@@ -24,6 +24,9 @@ stratio_env: "PRE"
 # always write the full github url (including /tree/branch)
 stratio_module_repository: "https://github.com/Stratio/streaming-cep-engine/tree/master"
 
+# module's name in one word (used for hostname, for instance) 
+stratio_module_name: streaming
+
 # this optional parameter will be the final version of the module
 # if not present, we will try to retrieve the version from the github url 
 stratio_module_version: "0.5.0"
