@@ -1,14 +1,14 @@
 export STRATIO_ENV="$(echo ${1:-PRE} | tr '[:lower:]' '[:upper:]')"
 export STRATIO_MODULE=$2
-export STRATIO_MODULE_VERSION=$3
-export STRATIO_MODULE_GITHUB_NAME="${4:-sandbox}"
+export STRATIO_MODULE_BRANCH=$3
+export STRATIO_MODULE_VERSION=$4
 
 case "$STRATIO_ENV" in
 	LOCAL) REPOSITORY="berilio.stratio.com/DEV/1.0.0"
 		;;
 	DEV) REPOSITORY="berilio.stratio.com/DEV/1.0.0"
 		;;
-	PRE) REPOSITORY="berilio.stratio.com/TEST/1.0.0"
+	PRE) REPOSITORY="prerepository.stratio.com/TEST/1.0.0"
 		;;
 	PRO) REPOSITORY="repository.stratio.com/stable"
 		;;
@@ -52,20 +52,27 @@ EOF
 ## JAVA ##
 ##########
 
-echo "Downloading Java 7 from Oracle..."
-curl -s -j -k -L -H "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/7u71-b14/jdk-7u71-linux-x64.tar.gz > /tmp/jdk-7u71-linux-x64.tar.gz
+echo "Checking java..."
+if type -p java; then
+    echo "OK. Java is already installed"
+else
+	echo "Downloading Java 7 from Oracle..."
+	curl -s -j -k -L -H "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/7u71-b14/jdk-7u71-linux-x64.tar.gz > /tmp/jdk-7u71-linux-x64.tar.gz
+	
+	echo "Installing Java 7..."
+	mkdir /usr/java && cd /usr/java
+	tar -xzf /tmp/jdk-7u71-linux-x64.tar.gz
+	chown -R root:root jdk1.7.0_71
+	ln -s jdk1.7.0_71 default
+	ln -s jdk1.7.0_71 latest
+	update-alternatives --install /usr/bin/java java /usr/java/default/bin/java 1000
+	update-alternatives --install /usr/bin/java java /usr/java/latest/bin/java 500
+	update-alternatives --install /usr/bin/jps jps /usr/java/default/bin/jps 1000
+	rm -f /tmp/jdk-7u71-linux-x64.tar.gz
+fi
 
-echo "Installing Java 7..."
-mkdir /usr/java && cd /usr/java
-tar -xzf /tmp/jdk-7u71-linux-x64.tar.gz
-chown -R root:root jdk1.7.0_71
-ln -s jdk1.7.0_71 default
-ln -s jdk1.7.0_71 latest
-update-alternatives --install /usr/bin/java java /usr/java/default/bin/java 1000
-update-alternatives --install /usr/bin/java java /usr/java/latest/bin/java 500
-update-alternatives --install /usr/bin/jps jps /usr/java/default/bin/jps 1000
-rm -f /tmp/jdk-7u71-linux-x64.tar.gz
-
+echo "Doing Java setup"
+	
 cat >/etc/profile.d/java.sh <<EOF
 # The first existing directory is used for JAVA_HOME if needed.
 JVM_SEARCH_DIRS="/usr/java/default /usr/lib/jvm/jre-openjdk /usr/lib/jvm/jre /usr/lib/jvm/jre-1.7.* /usr/lib/jvm/java-1.7.*/jre"
@@ -94,6 +101,8 @@ fi
 JAVA="\$JAVA_HOME/bin/java"
 export JAVA_HOME JAVA
 EOF
+
+
 
 ###################
 ## MISCELLANEOUS ##
@@ -163,12 +172,23 @@ chkconfig cassandra off
 chkconfig --add elasticsearch
 chkconfig elasticsearch off
 
+
+#### CONFIG ElasticSearch ####
+IP_ADDRESS=`ip -4 addr show dev eth1 | grep inet | sed -e 's/^.*inet \\(.*\\)\\/.*$/\\1/g'`
+sed -i "s/#network.host: 192.168.0.1/network.host: $IP_ADDRESS/g" /etc/sds/elasticsearch/elasticsearch.yml
+sed -i 's/#http.port: 9200/http.port: 9200/g' /etc/sds/elasticsearch/elasticsearch.yml
+sed -i 's/discovery.zen.minimum_master_nodes: 2/discovery.zen.minimum_master_nodes: 1/g' /etc/sds/elasticsearch/elasticsearch.yml
+sed -i 's/gateway.recover_after_nodes: 2/gateway.recover_after_nodes: 1/g' /etc/sds/elasticsearch/elasticsearch.yml
+sed -i 's/gateway.recover_after_master_nodes: 2/gateway.recover_after_master_nodes: 1/g' /etc/sds/elasticsearch/elasticsearch.yml
+
+
 ####################################
 ## DOWNLOAD & RUN SPECIFIC MODULE ##
 ####################################
 
 echo "Downloading module script..."
-DOWNLOAD_MODULE_SH_URL="https://raw.githubusercontent.com/Stratio/${STRATIO_MODULE_GITHUB_NAME}/master/sandbox/stratio_sandbox_module"
+DOWNLOAD_MODULE_SH_URL="https://raw.githubusercontent.com/Stratio/${STRATIO_MODULE}/${STRATIO_MODULE_BRANCH}/sandbox/stratio_sandbox_module"
+echo $DOWNLOAD_MODULE_SH_URL
 curl $DOWNLOAD_MODULE_SH_URL >/home/vagrant/module/stratio_sandbox_module
 echo "Executing module script..."
 bash /home/vagrant/module/stratio_sandbox_module
