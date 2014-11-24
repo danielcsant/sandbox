@@ -173,13 +173,17 @@ chkconfig --add elasticsearch
 chkconfig elasticsearch off
 
 
+
+
 #### CONFIG ElasticSearch ####
-IP_ADDRESS=`ip -4 addr show dev eth1 | grep inet | sed -e 's/^.*inet \\(.*\\)\\/.*$/\\1/g'`
-sed -i "s/#network.host: 192.168.0.1/network.host: $IP_ADDRESS/g" /etc/sds/elasticsearch/elasticsearch.yml
-sed -i 's/#http.port: 9200/http.port: 9200/g' /etc/sds/elasticsearch/elasticsearch.yml
+## TODO: remove this first line when modules accept cluster name
+sed -i 's/cluster.name: "Stratio ElasticSearch"/#cluster.name: "Stratio ElasticSearch"/g' /etc/sds/elasticsearch/elasticsearch.yml
 sed -i 's/discovery.zen.minimum_master_nodes: 2/discovery.zen.minimum_master_nodes: 1/g' /etc/sds/elasticsearch/elasticsearch.yml
 sed -i 's/gateway.recover_after_nodes: 2/gateway.recover_after_nodes: 1/g' /etc/sds/elasticsearch/elasticsearch.yml
 sed -i 's/gateway.recover_after_master_nodes: 2/gateway.recover_after_master_nodes: 1/g' /etc/sds/elasticsearch/elasticsearch.yml
+sed -i 's/index.number_of_replicas: 2/index.number_of_replicas: 1/g' /etc/sds/elasticsearch/elasticsearch.yml
+
+
 
 
 ####################################
