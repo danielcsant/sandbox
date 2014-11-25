@@ -15,6 +15,7 @@ case "$STRATIO_ENV" in
 	*) REPOSITORY="berilio.stratio.com/DEV/1.0.0"
 		;;
 esac		
+export REPOSITORY
 
 #############
 ## FOLDERS ##
@@ -56,24 +57,23 @@ echo "Checking java..."
 if type -p java; then
     echo "OK. Java is already installed"
 else
-	echo "Downloading Java 7 from Oracle..."
-	curl -s -j -k -L -H "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/7u71-b14/jdk-7u71-linux-x64.tar.gz > /tmp/jdk-7u71-linux-x64.tar.gz
-	
-	echo "Installing Java 7..."
-	mkdir /usr/java && cd /usr/java
-	tar -xzf /tmp/jdk-7u71-linux-x64.tar.gz
-	chown -R root:root jdk1.7.0_71
-	ln -s jdk1.7.0_71 default
-	ln -s jdk1.7.0_71 latest
-	update-alternatives --install /usr/bin/java java /usr/java/default/bin/java 1000
-	update-alternatives --install /usr/bin/java java /usr/java/latest/bin/java 500
-	update-alternatives --install /usr/bin/jps jps /usr/java/default/bin/jps 1000
-	rm -f /tmp/jdk-7u71-linux-x64.tar.gz
-fi
+    echo "Downloading Java 7 from Oracle..."
+    curl -s -j -k -L -H "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/7u71-b14/jdk-7u71-linux-x64.tar.gz > /tmp/jdk-7u71-linux-x64.tar.gz
 
-echo "Doing Java setup"
+    echo "Installing Java 7..."
+    mkdir /usr/java && cd /usr/java
+    tar -xzf /tmp/jdk-7u71-linux-x64.tar.gz
+    chown -R root:root jdk1.7.0_71
+    ln -s jdk1.7.0_71 default
+    ln -s jdk1.7.0_71 latest
+    update-alternatives --install /usr/bin/java java /usr/java/default/bin/java 1000
+    update-alternatives --install /usr/bin/java java /usr/java/latest/bin/java 500
+    update-alternatives --install /usr/bin/jps jps /usr/java/default/bin/jps 1000
+    rm -f /tmp/jdk-7u71-linux-x64.tar.gz
+
+    echo "Setting up Java..."
 	
-cat >/etc/profile.d/java.sh <<EOF
+    cat >/etc/profile.d/java.sh <<EOF
 # The first existing directory is used for JAVA_HOME if needed.
 JVM_SEARCH_DIRS="/usr/java/default /usr/lib/jvm/jre-openjdk /usr/lib/jvm/jre /usr/lib/jvm/jre-1.7.* /usr/lib/jvm/java-1.7.*/jre"
 
@@ -101,7 +101,7 @@ fi
 JAVA="\$JAVA_HOME/bin/java"
 export JAVA_HOME JAVA
 EOF
-
+fi
 
 
 ###################
@@ -109,7 +109,7 @@ EOF
 ###################
 
 # TODO: MODIFY WITH CORPORATE MESSAGE
-cat >>/home/vagrant/.bash_profile <<EOF
+grep -qi stratio /home/vagrant/.bash_profile || cat >>/home/vagrant/.bash_profile <<EOF
 ipaddress_eth0=\$(ip -4 addr show dev eth0 | grep inet | sed -e 's/^.*inet \\(.*\\)\\/.*$/\\1/g')
 ipaddress_eth1=\$(ip -4 addr show dev eth1 | grep inet | sed -e 's/^.*inet \\(.*\\)\\/.*$/\\1/g')
 
@@ -124,14 +124,12 @@ EOF
 echo "Adding IP to /etc/hosts..."
 ipaddress=$(ip -4 addr show dev eth0 | grep inet | sed -e 's/^.*inet \(.*\)\/.*$/\1/g')
 hostname=$(hostname --fqdn)
-echo "$ipaddress   $hostname" >> /etc/hosts
+grep -v 127.0.0.1 /etc/hosts | grep -q $hostname || echo "$ipaddress   $hostname" >> /etc/hosts
 # Adds ip address to /etc/hosts with every reboot, very convenient with DHCP network
 cat >/etc/init.d/ipaddress <<EOF
 #!/bin/bash
 #
 # /etc/init.d/ipaddress
-#
-# Just adds local ip address to /etc/hosts
 #
 # chkconfig: 345 40 60
 # description: Just adds local ip address to /etc/hosts
@@ -139,7 +137,7 @@ cat >/etc/init.d/ipaddress <<EOF
 ipaddress=\$(ip -4 addr show dev eth0 | grep inet | sed -e 's/^.*inet \\(.*\\)\\/.*$/\\1/g')
 hostname=\$(hostname --fqdn)
 
-grep -q \$hostname /etc/hosts
+grep -v 127.0.0.1 /etc/hosts | grep -q \$hostname
 ipexists=\$?
 
 if [ \$ipexists -eq 0 ]; then
@@ -173,8 +171,6 @@ chkconfig --add elasticsearch
 chkconfig elasticsearch off
 
 
-
-
 #### CONFIG ElasticSearch ####
 ## TODO: remove this first line when modules accept cluster name
 sed -i 's/cluster.name: "Stratio ElasticSearch"/#cluster.name: "Stratio ElasticSearch"/g' /etc/sds/elasticsearch/elasticsearch.yml
@@ -182,8 +178,6 @@ sed -i 's/discovery.zen.minimum_master_nodes: 2/discovery.zen.minimum_master_nod
 sed -i 's/gateway.recover_after_nodes: 2/gateway.recover_after_nodes: 1/g' /etc/sds/elasticsearch/elasticsearch.yml
 sed -i 's/gateway.recover_after_master_nodes: 2/gateway.recover_after_master_nodes: 1/g' /etc/sds/elasticsearch/elasticsearch.yml
 sed -i 's/index.number_of_replicas: 2/index.number_of_replicas: 1/g' /etc/sds/elasticsearch/elasticsearch.yml
-
-
 
 
 ####################################
