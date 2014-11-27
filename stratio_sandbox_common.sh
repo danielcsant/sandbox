@@ -160,7 +160,7 @@ yum -y -q --nogpgcheck install figlet git man grep
 ##############
 
 echo "Installing common services..."
-yum -y -q --nogpgcheck install stratio-kafka stratio-zookeeper stratio-cassandra stratio-elasticsearch mongodb-org
+yum -y -q --nogpgcheck install stratio-scala stratio-kafka stratio-zookeeper stratio-cassandra stratio-elasticsearch mongodb-org
 chkconfig --add zookeeper
 chkconfig zookeeper off
 chkconfig --add kafka
