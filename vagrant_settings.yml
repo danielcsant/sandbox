@@ -43,10 +43,11 @@ stratio_module_version: "0.5.0"
 # module's name in one word (used for hostname, for instance)
 #stratio_module_name: deep
 
+######## STRATIO INGESTION ######
 
-
-
-
+#stratio_module_repository: "https://github.com/Stratio/flume-ingestion/tree/feature/sandbox"
+#stratio_module_name: ingestion
+#stratio_module_version: "0.2.2"
 
 ######## STRATIO DEEP ######
 
