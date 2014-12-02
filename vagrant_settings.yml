@@ -10,42 +10,41 @@ sandbox_cpus: "2"
 
 sandbox_max_cpu_usage: "60"
 
+# environment, it should be [LOCAL|DEV|PRE|PRO]
+stratio_env: "PRE"
+
 #################################
 ##   MODULE SPECIFIC SETTINGS  ##
 #################################
 
-
-######## STRATIO STREAMING ######
-
-# environment, it should be [LOCAL|DEV|PRE|PRO]
-stratio_env: "PRE"
+######## TEMPLATE #######
 
 # this module will be fully installed in the sandbox
 # always write the full github url (including /tree/branch)
-stratio_module_repository: "https://github.com/Stratio/streaming-cep-engine/tree/master"
+#stratio_module_repository: https://github.com/Stratio/module/tree/branch
 
 # module's name in one word (used for hostname, for instance) 
-stratio_module_name: streaming
+#stratio_module_name: module
 
 # this optional parameter will be the final version of the module
 # if not present, we will try to retrieve the version from the github url 
-stratio_module_version: "0.5.0"
+#stratio_module_version: "0.5.0"
+
+
+######## STRATIO STREAMING ######
+
+#stratio_module_repository: "https://github.com/Stratio/streaming-cep-engine/tree/master"
+#stratio_module_name: streaming
+#stratio_module_version: "0.5.0"
 
 ######## STRATIO CROSSDATA ######
 
-# environment, it should be [LOCAL|DEV|PRE|PRO]
-#stratio_env: "PRE"
-
-# this module will be fully installed in the sandbox
-# always write the full github url (including /tree/branch)
 #stratio_module_repository: "https://github.com/Stratio/deep-spark/tree/release/0.6"
-
-# module's name in one word (used for hostname, for instance)
 #stratio_module_name: deep
 
 ######## STRATIO INGESTION ######
 
-#stratio_module_repository: "https://github.com/Stratio/flume-ingestion/tree/feature/sandbox"
+#stratio_module_repository: "https://github.com/Stratio/streaming-cep-engine/tree/feature/sandbox"
 #stratio_module_name: ingestion
 #stratio_module_version: "0.2.2"
 
