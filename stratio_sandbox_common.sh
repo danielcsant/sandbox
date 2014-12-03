@@ -1,3 +1,7 @@
+#################
+## ENVIRONMENT ##
+#################
+
 export STRATIO_ENV="$(echo ${1:-PRE} | tr '[:lower:]' '[:upper:]')"
 export STRATIO_MODULE=$2
 export STRATIO_MODULE_BRANCH=$3
@@ -17,37 +21,44 @@ case "$STRATIO_ENV" in
 esac		
 export REPOSITORY
 
+export WORK_MODULE_DIR=/home/vagrant/module
+export DOWNLOADS_DIR=/home/vagrant/downloads
+
+yum_install() {
+	yum install -y -q $@
+}
+
+add_repo() {
+cat >/etc/yum.repos.d/${1}.repo <<EOF
+[${1}]
+name=${2}
+baseurl=${3}
+gpgcheck=0
+enabled=1
+EOF
+}
+
+download() {
+	url="$1"
+	dest="$2"
+	shift 2
+	wget --no-check-certificate -q "$url" -O "$dest" $@
+}
+
 #############
 ## FOLDERS ##
 #############
-mkdir -p /home/vagrant/module
-mkdir -p /home/vagrant/downloads
+mkdir -p "${WORK_MODULE_DIR}"
+mkdir -p "${DOWNLOADS_DIR}"
 
 ##################
 ## REPOSITORIES ##
 ##################
 
 echo 'Loading repositories...'
-
-yum -y -q install --nogpgcheck http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
-
-# We add MongoDB repository
-cat >/etc/yum.repos.d/mongodb.repo <<EOF
-[mongodb]
-name=MongoDB Repository
-baseurl=http://downloads-distro.mongodb.org/repo/redhat/os/x86_64/
-gpgcheck=0
-enabled=1
-EOF
-
-# We add Stratio's repository
-cat >/etc/yum.repos.d/stratio.repo <<EOF
-[stratio]
-name=Stratio Package Repository
-baseurl=http://$REPOSITORY/RHEL/6.5
-gpgcheck=0
-enabled=1
-EOF
+yum_install --nogpgcheck http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
+add_repo "mongodb" "MongoDB Repository" "http://downloads-distro.mongodb.org/repo/redhat/os/x86_64/"
+add_repo "stratio" "Stratio Repository" "http://$REPOSITORY/RHEL/6.5"
 
 ##########
 ## JAVA ##
@@ -184,9 +195,11 @@ sed -i 's/index.number_of_replicas: 2/index.number_of_replicas: 1/g' /etc/sds/el
 ## DOWNLOAD & RUN SPECIFIC MODULE ##
 ####################################
 
-echo "Downloading module script..."
 DOWNLOAD_MODULE_SH_URL="https://raw.githubusercontent.com/Stratio/${STRATIO_MODULE}/${STRATIO_MODULE_BRANCH}/sandbox/stratio_sandbox_module"
-echo $DOWNLOAD_MODULE_SH_URL
-curl -s "$DOWNLOAD_MODULE_SH_URL" >/home/vagrant/module/stratio_sandbox_module
+MODULE_SH_PATH="${WORK_MODULE_DIR}/stratio_sandbox_module"
+
+echo "Downloading module script from ${DOWNLOAD_MODULE_SH_URL}"
+download "${DOWNLOAD_MODULE_SH_URL}" "${MODULE_SH_PATH}"
+
 echo "Executing module script..."
-bash /home/vagrant/module/stratio_sandbox_module
+. "${MODULE_SH_PATH}"
