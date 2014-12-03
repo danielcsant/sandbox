@@ -187,6 +187,6 @@ sed -i 's/index.number_of_replicas: 2/index.number_of_replicas: 1/g' /etc/sds/el
 echo "Downloading module script..."
 DOWNLOAD_MODULE_SH_URL="https://raw.githubusercontent.com/Stratio/${STRATIO_MODULE}/${STRATIO_MODULE_BRANCH}/sandbox/stratio_sandbox_module"
 echo $DOWNLOAD_MODULE_SH_URL
-curl $DOWNLOAD_MODULE_SH_URL >/home/vagrant/module/stratio_sandbox_module
+curl -s "$DOWNLOAD_MODULE_SH_URL" >/home/vagrant/module/stratio_sandbox_module
 echo "Executing module script..."
 bash /home/vagrant/module/stratio_sandbox_module
