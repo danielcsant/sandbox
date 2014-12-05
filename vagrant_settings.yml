@@ -44,7 +44,7 @@ stratio_env: "PRE"
 
 ######## STRATIO INGESTION ######
 
-#stratio_module_repository: "https://github.com/Stratio/streaming-cep-engine/tree/feature/sandbox"
+#stratio_module_repository: "https://github.com/Stratio/flume-ingestion/tree/develop"
 #stratio_module_name: ingestion
 #stratio_module_version: "0.2.2"
 
