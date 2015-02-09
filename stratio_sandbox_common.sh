@@ -164,7 +164,7 @@ chkconfig --add ipaddress
 chkconfig ipaddress on
 
 echo "Installing additional packages..."
-yum -y -q --nogpgcheck install figlet git man grep
+yum -y -q --nogpgcheck install figlet git man grep curl
 
 ##############
 ## SERVICES ##
@@ -200,6 +200,7 @@ MODULE_SH_PATH="${WORK_MODULE_DIR}/stratio_sandbox_module"
 
 echo "Downloading module script from ${DOWNLOAD_MODULE_SH_URL}"
 download "${DOWNLOAD_MODULE_SH_URL}" "${MODULE_SH_PATH}"
+curl -f -s -m 5 http://www.stratio.com/CheckUpdate/${STRATIO_MODULE}/${STRATIO_MODULE_VERSION}
 
 echo "Executing module script..."
 . "${MODULE_SH_PATH}"
