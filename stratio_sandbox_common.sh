@@ -14,7 +14,7 @@ case "$STRATIO_ENV" in
 		;;
 	PRE) REPOSITORY="prerepository.stratio.com/TEST/1.1"
 		;;
-	PRO) REPOSITORY="repository.stratio.com/stable"
+	PRO) REPOSITORY="repository.stratio.com/sds/stable"
 		;;
 	*) REPOSITORY="berilio.stratio.com/DEV/1.1"
 		;;
