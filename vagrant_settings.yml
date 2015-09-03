@@ -3,7 +3,7 @@
 ################################
 sandbox_base: "chef/centos-6.5"
 
-sandbox_memory: "3072"
+sandbox_memory: "2014"
 
 sandbox_cpus: "2"
 
@@ -14,3 +14,6 @@ private_hostnames:
 - sparkta: 10.240.39.3
 - crossdata: 10.240.39.4
 - streaming: 10.240.39.5
+- ingestion: 10.240.39.6
+- manager: 10.240.39.7
+- notebook: 10.240.39.8
