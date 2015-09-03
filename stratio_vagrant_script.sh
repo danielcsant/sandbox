@@ -97,6 +97,7 @@ ipaddress_eth0=\$(ip -4 addr show dev eth0 | grep inet | sed -e 's/^.*inet \\(.*
 ipaddress_eth1=\$(ip -4 addr show dev eth1 | grep inet | sed -e 's/^.*inet \\(.*\\)\\/.*$/\\1/g')
 echo "Welcome to"
 echo "\$(cat /home/welcome)"
+echo ""
 echo "Your IP addresses seem to be:"
 echo "(nat/dhcp)       eth0: \$ipaddress_eth0   "
 echo "(hostonly/fixed) eth1: \$ipaddress_eth1   "
