@@ -6,11 +6,11 @@ class Vfg
   def run()    
 
     open('vagrant_settings.yml', 'wb') do |file|            
-      file << open('http://172.19.1.35:8000/vagrant_settings.yml').read
+      file << open('https://github.com/Stratio/sandbox/edit/cont-delivery/vagrant_settings.yml').read
     end
 
     open('stratio_vagrant_script.sh', 'wb') do |file|      
-      file << open('http://172.19.1.35:8000/stratio_vagrant_script.sh').read
+      file << open('https://github.com/Stratio/sandbox/edit/cont-delivery/stratio_vagrant_script.sh').read
     end
 
     if File.exist?("../banner")
