@@ -1,0 +1,6 @@
+################################
+##   SANDBOX GLOBAL SETTINGS  ##
+################################
+sandbox_base: "chef/centos-6.5"
+
+sandbox_memory: "1024"

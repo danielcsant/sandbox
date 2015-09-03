@@ -1,8 +1,7 @@
 ################################
 ##   SANDBOX GLOBAL SETTINGS  ##
 ################################
-
-sandbox_box: "chef/centos-6.5"
+sandbox_base: "chef/centos-6.5"
 
 sandbox_memory: "3072"
 
@@ -10,52 +9,8 @@ sandbox_cpus: "2"
 
 sandbox_max_cpu_usage: "60"
 
-# environment, it should be [LOCAL|DEV|PRE|PRO]
-stratio_env: "PRE"
-
-#################################
-##   MODULE SPECIFIC SETTINGS  ##
-#################################
-
-######## TEMPLATE #######
-
-# this module will be fully installed in the sandbox
-# always write the full github url (including /tree/branch)
-#stratio_module_repository: https://github.com/Stratio/module/tree/branch
-
-# module's name in one word (used for hostname, for instance) 
-#stratio_module_name: module
-
-# this optional parameter will be the final version of the module
-# if not present, we will try to retrieve the version from the github url 
-#stratio_module_version: "0.5.0"
-
-
-######## STRATIO STREAMING ######
-
-#stratio_module_repository: "https://github.com/Stratio/streaming-cep-engine/tree/master"
-#stratio_module_name: streaming
-#stratio_module_version: "0.5.0"
-
-######## STRATIO CROSSDATA ######
-
-#stratio_module_repository: "https://github.com/Stratio/deep-spark/tree/release/0.6"
-#stratio_module_name: deep
-
-######## STRATIO INGESTION ######
-
-#stratio_module_repository: "https://github.com/Stratio/flume-ingestion/tree/develop"
-#stratio_module_name: ingestion
-#stratio_module_version: "0.2.2"
-
-######## STRATIO DEEP ######
-
-
-######## STRATIO DATAVIS ######
-
-
-
-######## STRATIO ADMIN ######
-
-
-######## STRATIO SPARKTA ######
+private_hostnames:
+- datavis: 10.240.39.2
+- sparkta: 10.240.39.3
+- crossdata: 10.240.39.4
+- streaming: 10.240.39.5
