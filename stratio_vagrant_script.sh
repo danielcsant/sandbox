@@ -122,7 +122,7 @@ fi
 echo "Installing additional shell packages..."
 yum -y install figlet
 figlet -f slant -c ${STRATIO_MODULE_FULLNAME}>/home/welcome
-truncate -s -1 /home/welcome > /home/welcome
+truncate -s -1 /home/welcome >> /home/welcome
 echo "   ${STRATIO_MODULE_VERSION}" >> /home/welcome
 #Welcome with usefull network info 
 grep -qi stratio /home/vagrant/.bash_profile || cat >>/home/vagrant/.bash_profile <<EOF
