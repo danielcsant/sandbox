@@ -1,9 +1,9 @@
-VAGRANTFILE_API_VERSION = "2"
+VAGRANTFILE_API_VERSION = '2'
 
 require 'open-uri'
 
 open('Vagrantfile_global.rb', 'wb') do |file|
-  file << open('http://172.19.1.35:8000/Vagrantfile_global.rb').read
+  file << open('https://raw.githubusercontent.com/Stratio/sandbox/cont-delivery/Vagrantfile_global.rb').read
 end
 
 require_relative 'Vagrantfile_global.rb'
