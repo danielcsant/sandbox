@@ -7,58 +7,24 @@ export STRATIO_MODULE_FULLNAME=$2
 export STRATIO_MODULE_VERSION=$3
 export STRATIO_MODULES_HOSTNAMES_IPS=$4
 export STRATIO_MODULE_BANNER=$5
-export WORK_MODULE_DIR=/home/vagrant/module
-export DOWNLOADS_DIR=/home/vagrant/downloads
-
-
-yum_install() {
-	yum install -y -q $@
-}
-
-add_repo() {
-##MODM
-wget "http://sodio.stratio.com/nexus/service/local/artifact/maven/content?r=releases-art&g=stratio&a=stratio-releases&c=noarch&p=rpm&v=LATEST" -O tmpfile.rpm
-yum -y localinstall tmpfile.rpm
-yum update 
-
-if [ STRATIO_MODULE == "streaming" ]; then
-    echo "Installing STREAMING packages"    
-    #yum -y install httpd stratio-streaming.noarch stratio-streaming-shell.noarch
-    yum -y install stratio-"${STRATIO_MODULE_NAME}"-"${STRATIO_MODULE_VERSION}" 
-    yum -y install stratio-"${STRATIO_MODULE_NAME}"-shell-"${STRATIO_MODULE_VERSION}" 
-else
-    echo "Installing your stratio module package..."
-    yum -y install stratio-"${STRATIO_MODULE_NAME}"-"${STRATIO_MODULE_VERSION}"
-fi
-}
-
-download() {
-	url="$1"
-	dest="$2"
-	shift 2
-	wget --no-check-certificate -q "$url" -O "$dest" $@
-}
-
-#############
-## FOLDERS ##
-#############
-
-mkdir -p "${WORK_MODULE_DIR}"
-mkdir -p "${DOWNLOADS_DIR}"
-
-##################
-## REPOSITORIES ##
-##################
 
 echo 'Loading repositories...'
-yum_install --nogpgcheck http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm 
+yum install -y --nogpgcheck http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm 
 
 ##ADDING STRATIO REPO
 echo 'Stratio inconming'
 wget "http://sodio.stratio.com/nexus/service/local/artifact/maven/content?r=releases-art&g=stratio&a=stratio-releases&c=noarch&p=rpm&v=LATEST" -O tmpfile.rpm
 yum -y localinstall tmpfile.rpm
 yum update 
-add_repo
+
+if [ STRATIO_MODULE == "streaming" ]; then
+    echo "Installing Stratio streaming packages"    
+    yum -y install stratio-"${STRATIO_MODULE_NAME}"-"${STRATIO_MODULE_VERSION}" 
+    yum -y install stratio-"${STRATIO_MODULE_NAME}"-shell-"${STRATIO_MODULE_VERSION}" 
+else
+    echo "Installing your Stratio module package..."
+    yum -y install stratio-"${STRATIO_MODULE_NAME}"-"${STRATIO_MODULE_VERSION}"
+fi
 
 ##########
 ## JAVA ##
@@ -121,12 +87,12 @@ fi
 ##Figlet installation to show welcome message
 echo "Installing additional shell packages..."
 yum -y install figlet
-figlet -f slant -c ${STRATIO_MODULE_FULLNAME}>/home/welcome
+figlet -f slant -c ${STRATIO_MODULE_FULLNAME} > /home/welcome
 sed -i '$ d' /home/welcome
 truncate -s -1 /home/welcome
 echo "   ${STRATIO_MODULE_VERSION}" >> /home/welcome
 #Welcome with usefull network info 
-grep -qi stratio /home/vagrant/.bash_profile || cat >>/home/vagrant/.bash_profile <<EOF
+grep -qi stratio /home/vagrant/.bash_profile || cat >> /home/vagrant/.bash_profile <<EOF
 ipaddress_eth0=\$(ip -4 addr show dev eth0 | grep inet | sed -e 's/^.*inet \\(.*\\)\\/.*$/\\1/g')
 ipaddress_eth1=\$(ip -4 addr show dev eth1 | grep inet | sed -e 's/^.*inet \\(.*\\)\\/.*$/\\1/g')
 echo "Welcome to"
