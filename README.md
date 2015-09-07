@@ -1,2 +1,2 @@
 # sandbox
-A global Vagrantfile wich provision Stratio boxes.
+A global Vagrantfile that provisions all Stratio boxes.
