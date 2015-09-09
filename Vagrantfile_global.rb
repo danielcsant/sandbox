@@ -13,8 +13,8 @@ class Vfg
       file << open('https://raw.githubusercontent.com/Stratio/sandbox/cont-delivery/stratio_vagrant_script.sh').read
     end
 
-    if File.exist?("../banner")
-      file = File.open("../banner")
+    if File.exist?("./BANNER")
+      file = File.open("./BANNER")
       banner = ""
       file.each { |line|
         banner << line
