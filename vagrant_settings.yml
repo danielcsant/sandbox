@@ -1,7 +1,7 @@
 ################################
 ##   SANDBOX GLOBAL SETTINGS  ##
 ################################
-sandbox_base: "http://sodio.stratio.com/nexus/service/local/repositories/thirdparty/content/vagrant/basebox/stratio-centos-6.6_1.0.box"
+sandbox_base: "http://sodio.stratio.com/nexus/service/local/repositories/thirdparty/content/vagrant/stratio-centos-6.6/1.0/stratio-centos-6.6-1.0.box"
 
 sandbox_memory: "2014"
 
