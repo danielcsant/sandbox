@@ -63,7 +63,7 @@ class Vfg
       # Create a private network, which allows host-only access to the machine      
       config.vm.network "private_network", ip: ip      
 
-      config.vm.post_up_message = "Stratian: your stratio-#{stratio_module_fullname} Sandbox is now up & ready..."
+      config.vm.post_up_message = "Stratian: your #{stratio_module_fullname} Sandbox is now up & ready..."
 
       config.vm.provider "virtualbox" do |vb|
         # Boot with headless mode
