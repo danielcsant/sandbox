@@ -55,7 +55,7 @@ class Vfg
     end
 
     Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-      #MODM
+      config.vm.boot_timeout = 500
       config.vm.box = "stratio/baseOS"
       config.vm.box_url = settings['sandbox_base']
       config.vm.hostname="#{stratio_module_name}.box.stratio.com"
