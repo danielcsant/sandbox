@@ -56,7 +56,7 @@ class Vfg
 
     Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       #MODM
-      config.vm.box = settings['sandbox_base']
+      config.vm.box_url = settings['sandbox_base']
       config.vm.hostname="#{stratio_module_name}.box.stratio.com"
 
       # Create a private network, which allows host-only access to the machine      
