@@ -1,7 +1,7 @@
 ################################
 ##   SANDBOX GLOBAL SETTINGS  ##
 ################################
-sandbox_base: "chef/centos-6.5"
+sandbox_base: "http://sodio.stratio.com/nexus/service/local/repositories/thirdparty/content/vagrant/basebox/stratio-centos-6.6_1.0.box"
 
 sandbox_memory: "2014"
 
@@ -17,3 +17,4 @@ private_hostnames:
 - ingestion: 10.240.39.6
 - manager: 10.240.39.7
 - notebook: 10.240.39.8
+- dbs: 10.240.39.9
