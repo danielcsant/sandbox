@@ -17,4 +17,4 @@ private_hostnames:
 - ingestion: 10.240.39.6
 - manager: 10.240.39.7
 - notebook: 10.240.39.8
-- dbs: 10.240.39.9
+- services: 10.240.39.9
