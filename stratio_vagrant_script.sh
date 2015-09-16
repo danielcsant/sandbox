@@ -87,10 +87,12 @@ fi
 ##Figlet installation to show welcome message
 echo "Installing additional shell packages..."
 yum -y install figlet
-figlet -f slant -c ${STRATIO_MODULE_FULLNAME} > /home/welcome
+figlet -f slant -c Stratio > /home/welcome
 sed -i '$ d' /home/welcome
 truncate -s -1 /home/welcome
-echo "   ${STRATIO_MODULE_VERSION}" >> /home/welcome
+figlet -f slant -c ${STRATIO_MODULE_NAME} >> /home/welcome
+figlet -f -c ${STRATIO_MODULE_VERSION} >> /home/welcome
+echo ""
 #Welcome with usefull network info 
 grep -qi stratio /home/vagrant/.bash_profile || cat >> /home/vagrant/.bash_profile <<EOF
 /etc/init.d/${STRATIO_MODULE_NAME} start
