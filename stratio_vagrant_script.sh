@@ -93,6 +93,7 @@ truncate -s -1 /home/welcome
 echo "   ${STRATIO_MODULE_VERSION}" >> /home/welcome
 #Welcome with usefull network info 
 grep -qi stratio /home/vagrant/.bash_profile || cat >> /home/vagrant/.bash_profile <<EOF
+/etc/init.d/${STRATIO_MODULE_NAME} start
 ipaddress_eth0=\$(ip -4 addr show dev eth0 | grep inet | sed -e 's/^.*inet \\(.*\\)\\/.*$/\\1/g')
 ipaddress_eth1=\$(ip -4 addr show dev eth1 | grep inet | sed -e 's/^.*inet \\(.*\\)\\/.*$/\\1/g')
 echo "Welcome to"
