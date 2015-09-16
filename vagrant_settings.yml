@@ -1,7 +1,7 @@
 ################################
 ##   SANDBOX GLOBAL SETTINGS  ##
 ################################
-sandbox_base: "http://tools.stratio.com/vagrant/stratio-centos-6.6-1.0.box"
+sandbox_base: "http://tools.stratio.com/vagrant/stratio-centos-6.6_1.1.box"
 
 sandbox_memory: "2014"
 
