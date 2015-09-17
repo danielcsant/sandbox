@@ -68,7 +68,7 @@ class Vfg
       config.vm.provider "virtualbox" do |vb|
         # Boot with headless mode
         vb.gui = false
-        vb.name = "stratio-#{stratio_module_name}-#{stratio_module_version}"
+        vb.name = "#{stratio_module_fullname} #{stratio_module_version}"
 
         # Use VBoxManage to customize the VM. For example to change memory:
         vb.memory = settings['sandbox_memory']
