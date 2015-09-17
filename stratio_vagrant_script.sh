@@ -16,6 +16,7 @@ echo 'Stratio inconming'
 wget "http://sodio.stratio.com/nexus/service/local/artifact/maven/content?r=releases-art&g=stratio&a=stratio-releases&c=noarch&p=rpm&v=LATEST" -O tmpfile.rpm
 yum -y localinstall tmpfile.rpm
 yum update 
+rm tmpfile.rpm
 
 if [ STRATIO_MODULE == "streaming" ]; then
     echo "Installing Stratio streaming packages"    
@@ -113,3 +114,4 @@ echo -e $STRATIO_MODULES_HOSTNAMES_IPS >> /etc/hosts
 sed -i 's/^HOSTNAME=.*$/HOSTNAME='${STRATIO_MODULE_NAME}'.box.stratio.com/g' /etc/sysconfig/network
 ##Delete net rules
 sed -i 's/^SUBSYSTEM/#SUBSYSTEM/g' /etc/udev/rules.d/70-persistent-net.rules 
+history -c
