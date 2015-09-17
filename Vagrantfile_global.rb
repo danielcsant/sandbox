@@ -64,7 +64,6 @@ class Vfg
       config.vm.network "private_network", ip: ip      
 
       config.vm.post_up_message = "Stratian: your #{stratio_module_fullname} Sandbox is now up & ready..."
-      config.vm.name= "#{stratio_module_fullname} #{stratio_module_version}"
       config.vm.provider "virtualbox" do |vb|
         # Boot with headless mode
         vb.gui = false
