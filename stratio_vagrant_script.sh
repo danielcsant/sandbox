@@ -93,7 +93,6 @@ figlet -c ${STRATIO_MODULE_VERSION} >> /home/welcome
 echo ""
 #Welcome with usefull network info 
 grep -qi stratio /home/vagrant/.bash_profile || cat >> /home/vagrant/.bash_profile <<EOF
-/etc/init.d/${STRATIO_MODULE_NAME} start
 ipaddress_eth0=\$(ip -4 addr show dev eth0 | grep inet | sed -e 's/^.*inet \\(.*\\)\\/.*$/\\1/g')
 ipaddress_eth1=\$(ip -4 addr show dev eth1 | grep inet | sed -e 's/^.*inet \\(.*\\)\\/.*$/\\1/g')
 echo "Welcome to"
@@ -104,6 +103,7 @@ echo "(nat/dhcp)       eth0: \$ipaddress_eth0   "
 echo "(hostonly/fixed) eth1: \$ipaddress_eth1   "
 echo ""
 echo "${STRATIO_MODULE_BANNER}"
+/etc/init.d/${STRATIO_MODULE_NAME} start
 EOF
 
 ## Add fixed ips to hosts
