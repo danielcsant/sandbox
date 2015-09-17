@@ -103,7 +103,7 @@ echo "(nat/dhcp)       eth0: \$ipaddress_eth0   "
 echo "(hostonly/fixed) eth1: \$ipaddress_eth1   "
 echo ""
 echo "${STRATIO_MODULE_BANNER}"
-/etc/init.d/${STRATIO_MODULE_NAME} start
+sudo /etc/init.d/${STRATIO_MODULE_NAME} start
 EOF
 
 ## Add fixed ips to hosts
