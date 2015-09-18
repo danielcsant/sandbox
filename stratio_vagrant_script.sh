@@ -96,12 +96,14 @@ echo ""
 grep -qi stratio /home/vagrant/.bash_profile || cat >> /home/vagrant/.bash_profile <<EOF
 ipaddress_eth0=\$(ip -4 addr show dev eth0 | grep inet | sed -e 's/^.*inet \\(.*\\)\\/.*$/\\1/g')
 ipaddress_eth1=\$(ip -4 addr show dev eth1 | grep inet | sed -e 's/^.*inet \\(.*\\)\\/.*$/\\1/g')
+ipaddress_eth2=\$(ip -4 addr show dev eth2 | grep inet | sed -e 's/^.*inet \\(.*\\)\\/.*$/\\1/g')
 echo "Welcome to"
 echo "\$(cat /home/welcome)"
 echo ""
 echo "Your IP addresses seem to be:"
-echo "(nat/dhcp)       eth0: \$ipaddress_eth0   "
-echo "(hostonly/fixed) eth1: \$ipaddress_eth1   "
+echo "(nat/internal use) eth0: \$ipaddress_eth0   "
+echo "(hostonly/fixed)   eth1: \$ipaddress_eth1   "
+echo "(bridged/dhcp)     eth2: \$ipaddress_eth2   "    
 echo ""
 echo "${STRATIO_MODULE_BANNER}"
 sudo /etc/init.d/${STRATIO_MODULE_NAME} start
