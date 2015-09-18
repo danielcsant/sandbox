@@ -8,9 +8,6 @@ export STRATIO_MODULE_VERSION=$3
 export STRATIO_MODULES_HOSTNAMES_IPS=$4
 export STRATIO_MODULE_BANNER=$5
 
-echo 'Loading repositories...'
-yum install -y --nogpgcheck http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm 
-
 ##ADDING STRATIO REPO
 echo 'Stratio inconming'
 wget "http://sodio.stratio.com/nexus/service/local/artifact/maven/content?r=releases-art&g=stratio&a=stratio-releases&c=noarch&p=rpm&v=LATEST" -O tmpfile.rpm
