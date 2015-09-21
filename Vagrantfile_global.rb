@@ -60,6 +60,7 @@ class Vfg
       config.vm.box = "#{stratio_module_fullname} #{stratio_module_version}"
       config.vm.box_url = settings['sandbox_base']
       config.vm.hostname="#{stratio_module_name}.box.stratio.com"
+      config.vm.synced_folder '.', '/vagrant', disabled: true
 
       # Create a private network, which allows host-only access to the machine  
       config.vm.network "public_network", bridge: "eth0"
