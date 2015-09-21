@@ -62,7 +62,7 @@ class Vfg
       config.vm.hostname="#{stratio_module_name}.box.stratio.com"
 
       # Create a private network, which allows host-only access to the machine  
-      config.vm.network "public_network", type: "dhcp", bridge: "eth0"
+      config.vm.network "public_network", bridge: "eth0"
       config.vm.network "private_network", ip: ip      
 
       config.vm.post_up_message = "Stratian: your #{stratio_module_fullname} Sandbox is now up & ready..."
