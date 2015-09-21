@@ -83,13 +83,17 @@ fi
 ###################
 
 ##Figlet installation to show welcome message
+
+BANNERNAME = STRATIO_MODULE_NAME.slice(0,1).capitalize + STRATIO_MODULE_NAME.slice(1..-1)
+
 echo "Installing additional shell packages..."
 yum -y install figlet
 figlet -f slant -c Stratio > /home/welcome
-figlet -f slant -c ${STRATIO_MODULE_NAME} >> /home/welcome
+figlet -f slant -c ${BANNERNAME} >> /home/welcome
 figlet -c ${STRATIO_MODULE_VERSION} >> /home/welcome
 echo ""
 #Welcome with usefull network info 
+
 grep -qi stratio /home/vagrant/.bash_profile || cat >> /home/vagrant/.bash_profile <<EOF
 ipaddress_eth0=\$(ip -4 addr show dev eth0 | grep inet | sed -e 's/^.*inet \\(.*\\)\\/.*$/\\1/g')
 ipaddress_eth1=\$(ip -4 addr show dev eth1 | grep inet | sed -e 's/^.*inet \\(.*\\)\\/.*$/\\1/g')
