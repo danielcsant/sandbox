@@ -104,8 +104,8 @@ echo "(nat/internal use) eth0: \$ipaddress_eth0   "
 echo "(bridged/dhcp)     eth1: \$ipaddress_eth1   "
 echo "(hostonly/fixed)   eth2: \$ipaddress_eth2   "    
 echo ""
-echo "${STRATIO_MODULE_BANNER}"
 sudo /etc/init.d/${STRATIO_MODULE_NAME} start
+echo "${STRATIO_MODULE_BANNER}"
 EOF
 
 ## Add fixed ips to hosts
