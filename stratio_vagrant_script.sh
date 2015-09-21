@@ -7,6 +7,7 @@ export STRATIO_MODULE_FULLNAME=$2
 export STRATIO_MODULE_VERSION=$3
 export STRATIO_MODULES_HOSTNAMES_IPS=$4
 export STRATIO_MODULE_BANNER=$5
+export BANNERNAME=$6
 
 ##ADDING STRATIO REPO
 echo 'Stratio inconming'
@@ -83,9 +84,6 @@ fi
 ###################
 
 ##Figlet installation to show welcome message
-
-BANNERNAME = STRATIO_MODULE_FULLNAME.split.last
-
 echo "Installing additional shell packages..."
 yum -y install figlet
 figlet -f slant -c Stratio > /home/welcome
