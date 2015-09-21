@@ -35,6 +35,7 @@ class Vfg
     stratio_module_fullname = doc.root.elements['name'].text
     stratio_module_name = stratio_module_fullname.split.last.downcase
     stratio_module_version = doc.root.elements['version'].text
+    stratio_banner_name = stratio_module_fullname.split.last
     stratio_hosts_config = ""
     ip = ""
 
@@ -76,7 +77,7 @@ class Vfg
         vb.customize ["modifyvm", :id, "--cpuexecutioncap", settings['sandbox_max_cpu_usage']]
       end
       
-      config.vm.provision "shell", path: "stratio_vagrant_script.sh", args: "#{stratio_module_name} '#{stratio_module_fullname}' #{stratio_module_version} '#{stratio_hosts_config}' '#{banner}'"      
+      config.vm.provision "shell", path: "stratio_vagrant_script.sh", args: "#{stratio_module_name} '#{stratio_module_fullname}' #{stratio_module_version} '#{stratio_hosts_config}' '#{banner}' #{stratio_banner_name}"      
     end
   end
 end
