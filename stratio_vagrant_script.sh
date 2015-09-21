@@ -84,7 +84,7 @@ fi
 
 ##Figlet installation to show welcome message
 
-BANNERNAME = STRATIO_MODULE_NAME.slice(0,1).capitalize + STRATIO_MODULE_NAME.slice(1..-1)
+BANNERNAME = "${STRATIO_MODULE_NAME}".slice(0,1).capitalize + "${STRATIO_MODULE_NAME}".slice(1..-1)
 
 echo "Installing additional shell packages..."
 yum -y install figlet
