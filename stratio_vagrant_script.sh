@@ -90,6 +90,9 @@ figlet -f slant -c Stratio > /home/welcome
 figlet -f slant -c ${BANNERNAME} >> /home/welcome
 figlet -c ${STRATIO_MODULE_VERSION} >> /home/welcome
 echo ""
+sudo chkconfig --add ${STRATIO_MODULE_NAME} 
+sudo chkconfig ${STRATIO_MODULE_NAME}  on
+
 #Welcome with usefull network info 
 
 grep -qi stratio /home/vagrant/.bash_profile || cat >> /home/vagrant/.bash_profile <<EOF
@@ -104,7 +107,6 @@ echo "(nat/internal use) eth0: \$ipaddress_eth0   "
 echo "(bridged/dhcp)     eth1: \$ipaddress_eth1   "
 echo "(hostonly/fixed)   eth2: \$ipaddress_eth2   "    
 echo ""
-sudo /etc/init.d/${STRATIO_MODULE_NAME} start
 echo "${STRATIO_MODULE_BANNER}"
 EOF
 
