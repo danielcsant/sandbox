@@ -10,11 +10,11 @@ sandbox_cpus: "2"
 sandbox_max_cpu_usage: "60"
 
 private_hostnames:
-- datavis: 10.240.39.2
+- viewer: 10.240.39.2
 - sparkta: 10.240.39.3
 - crossdata: 10.240.39.4
 - streaming: 10.240.39.5
 - ingestion: 10.240.39.6
-- manager: 10.240.39.7
-- notebook: 10.240.39.8
+- admin: 10.240.39.7
+- explorer: 10.240.39.8
 - services: 10.240.39.9
