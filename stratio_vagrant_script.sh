@@ -5,9 +5,8 @@
 export STRATIO_MODULE_NAME=$1
 export STRATIO_MODULE_FULLNAME=$2
 export STRATIO_MODULE_VERSION=$3
-export STRATIO_MODULES_HOSTNAMES_IPS=$4
-export STRATIO_MODULE_BANNER=$5
-export BANNERNAME=$6
+export STRATIO_MODULE_BANNER=$4
+export BANNERNAME=$5
 
 ##ADDING STRATIO REPO
 echo 'Stratio inconming'
@@ -93,25 +92,15 @@ echo ""
 sudo chkconfig --add ${STRATIO_MODULE_NAME} 
 sudo chkconfig ${STRATIO_MODULE_NAME}  on
 
-#Welcome with usefull network info 
+#Welcome with usefull info
 
 grep -qi stratio /home/vagrant/.bash_profile || cat >> /home/vagrant/.bash_profile <<EOF
-ipaddress_eth0=\$(ip -4 addr show dev eth0 | grep inet | sed -e 's/^.*inet \\(.*\\)\\/.*$/\\1/g')
-ipaddress_eth1=\$(ip -4 addr show dev eth1 | grep inet | sed -e 's/^.*inet \\(.*\\)\\/.*$/\\1/g')
 
 echo "Welcome to"
 echo "\$(cat /home/welcome)"
 echo ""
-echo "Your IP addresses seem to be:"
-echo "(nat/internal use) eth0: \$ipaddress_eth0   "
-echo "(bridged/dhcp)     eth1: \$ipaddress_eth1   "
-echo ""
-echo "${STRATIO_MODULE_BANNER}"
 EOF
 
-## Add fixed ips to hosts
-echo "Adding IP to /etc/hosts..."
-echo -e $STRATIO_MODULES_HOSTNAMES_IPS >> /etc/hosts
 ##Setting hostname 
 sed -i 's/^HOSTNAME=.*$/HOSTNAME='${STRATIO_MODULE_NAME}'.box.stratio.com/g' /etc/sysconfig/network
 ##Delete net rules

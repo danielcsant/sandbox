@@ -24,7 +24,6 @@ class Vfg
     settings = YAML::load_file("vagrant_settings.yml")
     if File.exist?("vagrant_settings_l.yml")       
        settingslocal = YAML::load_file("vagrant_settings_l.yml")
-       ##Now we merge both hashes to combine all settings
        settings = settings.merge(settingslocal)
        puts "--- Local vagrant settings have been applied ---"
     end    
@@ -35,19 +34,8 @@ class Vfg
     stratio_module_fullname = doc.root.elements['name'].text
     stratio_module_name = stratio_module_fullname.split.last.downcase
     stratio_module_version = doc.root.elements['version'].text
-    stratio_banner_name = stratio_module_fullname.split.last
-    stratio_hosts_config = ""
-    ip = ""
-
-    #Reading and transposing the hash to fetch ip-hostname duple
-    settings['private_hostnames'].each do |mod|      
-       mod.each do |x, y|
-        stratio_hosts_config << y.to_s << " " << x.to_s << ".box.stratio.com" << "\\n"
-      end      
-    end   
-
+    stratio_banner_name = stratio_module_fullname.split.last  
     
-        
     settings['private_hostnames'].each do |mod|      
       if mod["#{stratio_module_name}"]!=nil 
         ip = mod["#{stratio_module_name}"]     
@@ -59,25 +47,20 @@ class Vfg
       config.vm.boot_timeout = 1500
       config.vm.box = "#{stratio_module_fullname} #{stratio_module_version}"
       config.vm.box_url = settings['sandbox_base']
-      config.vm.hostname="#{stratio_module_name}.box.stratio.com"
-      config.vm.synced_folder '.', '/vagrant', disabled: true
+      config.vm.hostname="#{stratio_module_name}.box.stratio.com"    
+      
+      config.vm.network "public_network",
 
-      # Create a private network, which allows host-only access to the machine  
-      config.vm.network "public_network", bridge: "eth0"
-      config.vm.network "private_network", ip: ip      
       config.vm.post_up_message = "Stratian: your #{stratio_module_fullname} Sandbox is now up & ready..."
-      config.vm.provider "virtualbox" do |vb|
-        # Boot with headless mode
+      config.vm.provider "virtualbox" do |vb|        
         vb.gui = false
         vb.name = "#{stratio_module_fullname} #{stratio_module_version}"
-
-        # Use VBoxManage to customize the VM. For example to change memory:
         vb.memory = settings['sandbox_memory']
         vb.cpus = settings['sandbox_cpus']
         vb.customize ["modifyvm", :id, "--cpuexecutioncap", settings['sandbox_max_cpu_usage']]
       end
       
-      config.vm.provision "shell", path: "stratio_vagrant_script.sh", args: "#{stratio_module_name} '#{stratio_module_fullname}' #{stratio_module_version} '#{stratio_hosts_config}' '#{banner}' #{stratio_banner_name}"      
+      config.vm.provision "shell", path: "stratio_vagrant_script.sh", args: "#{stratio_module_name} '#{stratio_module_fullname}' #{stratio_module_version} '#{banner}' #{stratio_banner_name}"      
     end
   end
 end
