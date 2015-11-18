@@ -36,13 +36,6 @@ class Vfg
     stratio_module_version = doc.root.elements['version'].text
     stratio_banner_name = stratio_module_fullname.split.last  
     
-    settings['private_hostnames'].each do |mod|      
-      if mod["#{stratio_module_name}"]!=nil 
-        ip = mod["#{stratio_module_name}"]     
-      break
-      end
-    end
-
     Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       config.vm.boot_timeout = 1500
       config.vm.box = "#{stratio_module_fullname} #{stratio_module_version}"
