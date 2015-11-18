@@ -42,7 +42,7 @@ class Vfg
       config.vm.box_url = settings['sandbox_base']
       config.vm.hostname="#{stratio_module_name}.box.stratio.com"    
       
-      config.vm.network "public_network",
+      config.vm.network "public_network"
 
       config.vm.post_up_message = "Stratian: your #{stratio_module_fullname} Sandbox is now up & ready..."
       config.vm.provider "virtualbox" do |vb|        
