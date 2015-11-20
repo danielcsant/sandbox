@@ -2,7 +2,7 @@
 ##   SANDBOX GLOBAL SETTINGS  ##
 ################################
 
-sandbox_box: "chef/centos-6.5"
+sandbox_box: "http://tools.stratio.com/vagrant/stratio-centos-6.7_1.0.box"
 
 sandbox_memory: "3072"
 
@@ -39,8 +39,9 @@ stratio_env: "PRE"
 
 ######## STRATIO CROSSDATA ######
 
-#stratio_module_repository: "https://github.com/Stratio/deep-spark/tree/release/0.6"
-#stratio_module_name: deep
+stratio_module_repository: "https://github.com/Stratio/Crossdata/tree/branch-0.5"
+stratio_module_name: Crossdata
+stratio_module-version: "0.5.1"
 
 ######## STRATIO INGESTION ######
 

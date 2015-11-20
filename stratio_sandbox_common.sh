@@ -12,7 +12,7 @@ case "$STRATIO_ENV" in
 		;;
 	DEV) REPOSITORY="berilio.stratio.com/DEV/1.1"
 		;;
-	PRE) REPOSITORY="prerepository.stratio.com/TEST/1.1"
+	PRE) REPOSITORY="prerepository.stratio.com/TEST/1.4"
 		;;
 	PRO) REPOSITORY="repository.stratio.com/sds/stable"
 		;;
@@ -58,7 +58,7 @@ mkdir -p "${DOWNLOADS_DIR}"
 echo 'Loading repositories...'
 yum_install --nogpgcheck http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
 add_repo "mongodb" "MongoDB Repository" "http://downloads-distro.mongodb.org/repo/redhat/os/x86_64/"
-add_repo "stratio" "Stratio Repository" "http://$REPOSITORY/RHEL/6.5"
+add_repo "stratio" "Stratio Repository" "http://$REPOSITORY/RHEL/6.x"
 
 ##########
 ## JAVA ##
