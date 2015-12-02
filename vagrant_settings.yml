@@ -2,7 +2,7 @@
 ##   SANDBOX GLOBAL SETTINGS  ##
 ################################
 
-sandbox_box: "chef/centos-6.5"
+sandbox_box: "bento/centos-6.7"
 
 sandbox_memory: "3072"
 
@@ -59,3 +59,6 @@ stratio_env: "PRE"
 
 
 ######## STRATIO SPARKTA ######
+stratio_module_repository: "https://github.com/Stratio/Sparkta/tree/0.7.0"
+stratio_module_name: sparkta
+stratio_module_version: "0.7.0"

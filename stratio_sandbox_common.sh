@@ -8,15 +8,15 @@ export STRATIO_MODULE_BRANCH=$3
 export STRATIO_MODULE_VERSION=$4
 
 case "$STRATIO_ENV" in
-	LOCAL) REPOSITORY="berilio.stratio.com/DEV/1.1"
+	LOCAL) REPOSITORY="berilio.stratio.com/DEV/1.4"
 		;;
-	DEV) REPOSITORY="berilio.stratio.com/DEV/1.1"
+	DEV) REPOSITORY="berilio.stratio.com/DEV/1.4"
 		;;
-	PRE) REPOSITORY="prerepository.stratio.com/TEST/1.1"
+	PRE) REPOSITORY="prerepository.stratio.com/PREPRO/1.4"
 		;;
 	PRO) REPOSITORY="repository.stratio.com/sds/stable"
 		;;
-	*) REPOSITORY="berilio.stratio.com/DEV/1.1"
+	*) REPOSITORY="berilio.stratio.com/DEV/1.4"
 		;;
 esac		
 export REPOSITORY
