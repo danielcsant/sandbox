@@ -59,6 +59,6 @@ stratio_env: "PRE"
 
 
 ######## STRATIO SPARKTA ######
-stratio_module_repository: "https://github.com/Stratio/Sparkta/tree/0.7.0"
+stratio_module_repository: "https://github.com/Stratio/Sparkta/tree/${sparkta_version}"
 stratio_module_name: sparkta
-stratio_module_version: "0.7.0"
+stratio_module_version: "${sparkta_version}"
