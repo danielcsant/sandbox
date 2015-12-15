@@ -10,7 +10,7 @@ export BANNERNAME=$5
 
 ##ADDING STRATIO REPO
 echo 'Stratio inconming'
-wget "http://sodio.stratio.com/nexus/service/local/artifact/maven/content?r=releases-art&g=stratio&a=stratio-releases&c=noarch&p=rpm&v=LATEST" -O tmpfile.rpm
+wget "http://sodio.stratio.com/nexus/service/local/repositories/releases-art/content/stratio/stratio-releases/0.1.0/stratio-releases-0.1.0-noarch.rpm" -O tmpfile.rpm
 yum -y localinstall tmpfile.rpm
 yum update 
 rm tmpfile.rpm
