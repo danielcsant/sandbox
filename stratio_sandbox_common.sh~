@@ -8,15 +8,13 @@ export STRATIO_MODULE_BRANCH=$3
 export STRATIO_MODULE_VERSION=$4
 
 case "$STRATIO_ENV" in
-	LOCAL) REPOSITORY="berilio.stratio.com/DEV/1.4/RHEL/6.x"
+	LOCAL) REPOSITORY="berilio.stratio.com/DEV/1.4"
 		;;
-	DEV) REPOSITORY="berilio.stratio.com/DEV/1.4/RHEL/6.x"
+	DEV) REPOSITORY="berilio.stratio.com/DEV/1.4"
 		;;
-	PRE) REPOSITORY="prerepository.stratio.com/PREPRO/1.4/RHEL/6.x"
+	PRE) REPOSITORY="prerepository.stratio.com/PREPRO/1.4"
 		;;
-	PRO) REPOSITORY="repository.stratio.com/sds/stable/RHEL/6.x"
-		;;
-	RC) REPOSITORY="sodio.stratio.com/nexus/content/repositories/releases-art/"
+	PRO) REPOSITORY="repository.stratio.com/sds/stable"
 		;;
 	*) REPOSITORY="berilio.stratio.com/DEV/1.4"
 		;;
@@ -60,7 +58,7 @@ mkdir -p "${DOWNLOADS_DIR}"
 echo 'Loading repositories...'
 yum_install --nogpgcheck http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
 add_repo "mongodb" "MongoDB Repository" "http://downloads-distro.mongodb.org/repo/redhat/os/x86_64/"
-add_repo "stratio" "Stratio Repository" "http://$REPOSITORY"
+add_repo "stratio" "Stratio Repository" "http://$REPOSITORY/RHEL/6.x"
 
 ##########
 ## JAVA ##

@@ -11,7 +11,7 @@ sandbox_cpus: "2"
 sandbox_max_cpu_usage: "60"
 
 # environment, it should be [LOCAL|DEV|PRE|PRO]
-stratio_env: "RC"
+stratio_env: "PRE"
 
 #################################
 ##   MODULE SPECIFIC SETTINGS  ##
